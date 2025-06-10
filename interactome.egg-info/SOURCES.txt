@@ -1,0 +1,6 @@
+README.md
+setup.py
+interactome.egg-info/PKG-INFO
+interactome.egg-info/SOURCES.txt
+interactome.egg-info/dependency_links.txt
+interactome.egg-info/top_level.txt

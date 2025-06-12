@@ -1,2 +1,6 @@
 __pycache__/
 .vscode/
+data_files/
+*.log
+interactome/temp.py
+interactome/data/test_interactome.csv

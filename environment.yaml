@@ -27,5 +27,8 @@ dependencies:
   - pip:
     - rootutils
     - pandas==2.2.3
+    - lxml==5.3.0
+    - pymex==0.9.31
+    - gitpython==3.1.44
     - matplotlib
     - -e .

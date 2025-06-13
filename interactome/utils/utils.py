@@ -1,6 +1,7 @@
 from git import Repo, InvalidGitRepositoryError
 import os
 
+
 def get_git_root(start_path=None):
     """
     Return the absolute path to the root of the Git repository.
@@ -21,12 +22,14 @@ def get_git_root(start_path=None):
     except InvalidGitRepositoryError:
         return None
 
+
 def main():
     git_root = get_git_root()
     if git_root:
         print(f"Git root: {git_root}")
     else:
         print("Not inside a Git repository.")
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,9 @@
+# configs/download.yaml
+
+defaults:
+  - _self_
+  - paths: default
+  - database: intact
+  - hydra: default  # ← tells Hydra to use the logging/output config
+
+task_name: download

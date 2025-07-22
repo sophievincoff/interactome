@@ -723,9 +723,8 @@ def main():
     posfile_intermediate_path = "../data_files/processed/intact/positive_output_chunks"
     
     # Do negative parallel processing
-    #utput_files = run_parallel_parsing(negfiles, acceptable_labels, output_dir=negfile_intermediate_path)
-    #merge_outputs(negfile_intermediate_path, interaction_type="negative")
-
+    output_files = run_parallel_parsing(posfiles, acceptable_labels, output_dir=posfile_intermediate_path)
+    merge_outputs(posfile_intermediate_path, interaction_type="positive")
 
 if __name__ == "__main__":
     logger = logging.getLogger(__name__)

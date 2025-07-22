@@ -1,0 +1,16 @@
+# configs/paths/default.yaml
+
+# project root
+root_dir: ${oc.env:PROJECT_ROOT}
+
+# path to raw and processed data
+data_dir: ${paths.root_dir}/interactome/data_files/
+
+# path to logs
+log_dir: ${paths.root_dir}/interactome/logs/
+
+# hydra-managed output dir
+output_dir: ${hydra:runtime.output_dir}
+
+# working dir (original CWD when launched)
+work_dir: ${hydra:runtime.cwd}

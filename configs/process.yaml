@@ -1,0 +1,7 @@
+defaults:
+  - _self_
+  - paths: default
+  - database: intact
+  - hydra: default
+
+task_name: process

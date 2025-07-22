@@ -12,13 +12,15 @@ Version: Release 250 Apr 2025. Details copied below from https://ftp.ebi.ac.uk/p
 [DIR]	various/	2025-04-03 15:39	-	 
 ```
 
-Steps:
-1. Run `download_psi30.py` script. 
-2. In terminal:
-    a. Make sure the dowloaded file is the right size: `ls -lh all.zip`
-    b. Expand it: `unzip all.zip`.  
+Scripts:
+`download_intact.sh`
+    * Expects to be run in the format `bash download_intact.sh <url> <dest_dir>`
+    * Can be run with `python scripts/download.py database=intact`, can optoinally change url with url= and dest_dir=
 
 # BioGRID
-Date of download: 6/10/2025
-Version: BioGRID Release 4.4.246, compiled May 25th, 2025
+Date of download: 67/22/2025
+Version: BioGRID Release 4.4.247, compiled June 25th, 2025
 Info here: https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-4.4.246/
+
+# Processing
+First, process IntAct by running it 

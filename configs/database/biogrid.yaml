@@ -1,0 +1,7 @@
+name: biogrid
+script_path: interactome/data/download.sh
+
+url: https://downloads.thebiogrid.org/Download/BioGRID/Release-Archive/BIOGRID-4.4.247/BIOGRID-ALL-4.4.247.tab3.zip
+output_dir: interactome/data_files/raw/biogrid
+filename: BIOGRID-ALL-4.4.247.tab3.zip
+task_name: download

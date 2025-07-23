@@ -1,7 +1,12 @@
 defaults:
   - _self_
   - paths: default
-  - database: intact
+  - process: intact
   - hydra: default
+  
 
 task_name: process
+
+process:
+  debug: false
+  debug_file: ""  # e.g., "data_files/raw/intact/psi30/pmid/1980/6444721.xml"

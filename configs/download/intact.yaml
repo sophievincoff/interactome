@@ -1,7 +1,6 @@
 name: intact
-script_path: interactome/data/download.sh
+task_name: download
 
 url: ftp://ftp.ebi.ac.uk/pub/databases/intact/current/all.zip
 output_dir: interactome/data_files/raw/intact
 filename: all_release250.zip
-task_name: download

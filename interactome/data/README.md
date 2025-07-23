@@ -20,7 +20,9 @@ Scripts:
 # BioGRID
 Date of download: 67/22/2025
 Version: BioGRID Release 4.4.247, compiled June 25th, 2025
-Info here: https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-4.4.246/
+Info here: https://downloads.thebiogrid.org/BioGRID/Release-Archive/BIOGRID-4.4.247/
+
+
 
 # Processing
 First, process IntAct by running it 

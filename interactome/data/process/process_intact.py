@@ -1,20 +1,23 @@
-from os import listdir
 import os
-from os.path import isfile, join
 import pandas as pd
 from lxml import etree as ET
 import logging
 import pymex.mif
 import xml.etree.ElementTree as ET
-import builtins
-from interactome.utils import get_git_root
 import os
 import pandas as pd
 import multiprocessing
 from functools import partial
 from math import ceil
 from datetime import datetime
+from hydra.core.hydra_config import HydraConfig
+from omegaconf import DictConfig
+from pathlib import Path
 
+import rootutils
+root = rootutils.setup_root(__file__, indicator=".project-root", pythonpath=True)
+
+logger = logging.getLogger(__name__)
 
 def organize_cv(
     path="../data_files/raw/intact/cv/intact.obo",
@@ -67,7 +70,7 @@ def organize_cv(
     traverse(starting_id)
 
     df = pd.DataFrame(results)
-    print(df.head())
+    logger.info(df.head())
 
     os.makedirs(out_dir, exist_ok=True)
     df.to_csv(
@@ -75,7 +78,9 @@ def organize_cv(
     )
 
 
-def see_all_keys(file, output_dir="../data_files/processed/intact/examples"):
+def see_all_keys(file, output_dir:Path):
+    output_dir = Path(output_dir)
+    
     rec = pymex.mif.Record()
     rec.parseMif(file, "mif300")
     with open(f"{output_dir}/available_keys.txt", "w") as f:
@@ -142,15 +147,16 @@ def get_all_paths_and_values(obj, prefix="root", visited=None, depth=0, max_dept
 
 
 def record_all_paths_and_values(
-    file, output_dir="../data_files/processed/intact/examples", interaction_no=0
+    file, output_dir:Path, interaction_no=0
 ):
     """
     Records all the paths and values for the first interaction as an example.
     """
+    output_dir = Path(output_dir)
     rec = pymex.mif.Record()
     filename = file.split("/")[-1].replace(".xml", "")
     rec.parseMif(file, "mif300")
-    print(file)
+    logger.info(file)
 
     # Just get the first interaction
     interaction = rec.interactions[interaction_no]
@@ -188,20 +194,224 @@ def record_all_paths_and_values(
                                 val_str = f"[Error converting value: {e}]"
                             f.write(f"{path}: {val_str}\n")
                 else:
-                    logging.warning(
+                    logger.warning(
                         f"Interaction in {file} does not contain two protein interactors."
                     )
             except Exception as e:
-                logging.error(f"Error processing interaction: {e}")
+                logger.error(f"Error processing interaction: {e}")
         else:
-            logging.warning(
+            logger.warning(
                 f"Interaction is not between two interactors of type != None."
             )
     else:
-        logging.warning(
+        logger.warning(
             f"Interaction in {file} does not have exactly two participants. Has {len(interaction.participants)}"
         )
 
+def query_all_interaction_keys(interaction):
+    """
+    Helper method for debug mode. Run this to see all the keys in an interaction. 
+    """
+    # parse the interaction - every key 
+    try:
+      logger.info(f"\tInteraction alias: {interaction.alias}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction alias: {e}")
+
+    try:  
+      logger.info(f"\tInteraction attribs: {interaction.attribs}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction attribs: {e}")
+
+    try:
+      logger.info(f"\tInteraction availability: {interaction.availability}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction availability: {e}")
+    
+    try:
+      logger.info(f"\tInteraction confidence: {interaction.confidence}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction confidence: {e}")
+
+    try:
+      logger.info(f"\tInteraction direct: {interaction.direct}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction direct: {e}")
+
+    try:
+      logger.info(f"\tInteraction expand: {interaction.expand}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction expand: {e}")
+
+    try:
+      logger.info(f"\tInteraction experiment: {interaction.experiment}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction experiment: {e}")
+
+    try:
+      logger.info(f"\tInteraction experimentCount: {interaction.experimentCount}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction experimentCount: {e}")
+
+    try:
+      logger.info(f"\tInteraction experiments: {interaction.experiments}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction experiments: {e}")
+
+    try:
+      logger.info(f"\tInteraction gene: {interaction.gene}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction gene: {e}")
+
+    try:
+      logger.info(f"\tInteraction getExperiment: {interaction.getExperiment}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction getExperiment: {e}")
+
+    try:
+      logger.info(f"\tInteraction getParticipant: {interaction.getParticipant}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction getParticipant: {e}")
+    
+    try:
+      logger.info(f"\tInteraction imexid: {interaction.imexid}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction imexid: {e}")
+
+    try:
+      logger.info(f"\tInteraction intramolecular: {interaction.intramolecular}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction intramolecular: {e}")
+
+    try:
+      logger.info(f"\tInteraction label: {interaction.label}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction label: {e}")
+
+    try:  
+      logger.info(f"\tInteraction modelled: {interaction.modelled}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction modelled: {e}")
+
+    try:
+      logger.info(f"\tInteraction name: {interaction.name}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction name: {e}")
+
+    try:
+      logger.info(f"\tInteraction params: {interaction.params}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction params: {e}")
+    
+    try:
+      logger.info(f"\tInteraction participantCount: {interaction.participantCount}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction participantCount: {e}")
+    
+    try:
+      logger.info(f"\tInteraction participants: {interaction.participants}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction participants: {e}")
+    
+    try:
+      logger.info(f"\tInteraction physical: {interaction.physical}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction physical: {e}")
+    
+    try:
+      logger.info(f"\tInteraction primaryRef: {interaction.primaryRef}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction primaryRef: {e}")
+    
+    try:
+      logger.info(f"\tInteraction secondaryRef: {interaction.secondaryRef}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction secondaryRef: {e}")
+    
+    try:
+      logger.info(f"\tInteraction source: {interaction.source}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction source: {e}")
+    
+    try:
+      logger.info(f"\tInteraction type: {interaction.type}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction type: {e}")
+    
+    try:
+      logger.info(f"\tInteraction types: {interaction.types}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction types: {e}")
+    
+    try:
+      logger.info(f"\tInteraction xrefCount: {interaction.xrefCount}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction xrefCount: {e}")
+    
+    try:
+      logger.info(f"\tInteraction xrefs: {interaction.xrefs}")
+    except Exception as e:
+      logger.info(f"\tERROR processing Interaction xrefs: {e}")
+        
+def run_debug_mode(debug_file: str, acceptable_labels: list, output_dir: Path):
+    """
+    Debug mode: pick one xml file and parse with lots of print statements to understand what is going wrong.
+    """
+    logger.info(f"--- Running DEBUG mode on: {debug_file} ---")
+    example_fname = Path(debug_file).stem
+    rec = pymex.mif.Record()
+    rec.parseMif(debug_file, "mif300")
+
+    logger.info(f"File has {len(rec.interactions)} interactions.")
+    for i, interaction in enumerate(rec.interactions):
+        logger.info(f"\nInteraction {i}")
+        logger.info(f"  Interaction imexid: {interaction.imexid}")
+        logger.info(f"  Interaction label: {interaction.label}")
+        logger.info(f"  Number of participants: {len(interaction.participants)}")
+        try:
+            label = interaction.type.label
+            logger.info(f"  Interaction type label: {label}")
+        except:
+            logger.info("  No interaction type label found.")
+
+        if len(interaction.participants) == 2:
+            p1 = interaction.participants[0]
+            p2 = interaction.participants[1]
+            try:
+                logger.info(f"\tInteractor 1 type: {p1.interactor.type.label}")
+                logger.info(f"\tInteractor 2 type: {p2.interactor.type.label}")
+            except:
+                logger.info("\tCould not access interactor type.")
+        else:
+            logger.info("\tInteraction does not have exactly two participants.")
+            for part in interaction.participants:
+                try:
+                    logger.info(f"\t\tParticipant type: {part.interactor.type.label}")
+                except:
+                    logger.info("\t\tCould not access participant interactor type.")
+
+                try:
+                    part_info = parse_psi30_interactor(part.interactor)
+                    logger.info(f"\t\tParticipant gene symbol and uniprot: {part_info['gene_symbol']}, {part_info['uniprotkb']}")
+                except Exception as e:
+                    logger.error(f"\t\tError parsing participant interactor: {e}")
+
+        query_all_interaction_keys(interaction)
+    
+    
+    logger.info("\n--- Running parse_psi30 ---")
+    test_info = parse_psi30([debug_file], acceptable_labels)
+
+    df = pd.DataFrame.from_dict(test_info).rename(columns={
+        "gene_name_1": "protein_1",
+        "gene_name_2": "protein_2",
+        "protein_1": "aa_1",
+        "protein_2": "aa_2",
+    })
+    output_dir.mkdir(parents=True, exist_ok=True)
+    debug_path = output_dir / f"DEBUG_{example_fname}_parsed.csv"
+    df.to_csv(debug_path, index=False)
+    logger.info(f"Saved debug output to {debug_path}")
 
 def parse_psi30_interactor(interactor):
     """
@@ -343,7 +553,7 @@ def parse_psi30_experiment(experiment):
             if experiment.bibref.primaryRef.db == "pubmed":
                 new_experiment["pubmed"] = experiment.bibref.primaryRef.ac
             else:
-                pubmed.append(None)
+                new_experiment["pubmed"] = None
                 
             # Experiment info
             if experiment.method.name is not None:
@@ -377,16 +587,16 @@ def parse_psi30_experiment(experiment):
                                 new_host["compartment"] = host.compartment
                             
                             # Host organism tissue
-                            if host.tissue.label is not None:
-                                new_host["tissue"] = host.tissue.label 
+                            if host.tissue is not None:
+                                if host.tissue.label is not None:
+                                    new_host["tissue"] = host.tissue.label 
                             
                             new_experiment["hosts"].append(new_host)      
                         else:
-                            logger.warning(f"Host taxid is -1, not full host") 
-                                         
+                            logger.warning(f"Host taxid is -1, not full host")             
                         
         except Exception as e:
-            logging.error(f"Error processing experiment: {e}")
+            logger.error(f"Error processing experiment: {e}")
 
     return new_experiment
 
@@ -396,13 +606,12 @@ def parse_psi30(files, acceptable_labels):
     """
     rec = pymex.mif.Record()
 
-    counter_of_short = 0
-
     interaction_label = []
     interaction_mi = []
     # There can be multiple experiments per interaction 
     # Each experiment entry will be a list of dictionaries
     experiments = []
+    year = []
     
     gene_name_1 = []
     gene_symbol_1 = []
@@ -441,6 +650,8 @@ def parse_psi30(files, acceptable_labels):
     host_tissue_2 = []
 
     for file in files:
+        # get the year. Example file path ends in psi30/pmid/2003/14609943.xml
+        fyear = int(file.split("psi30/pmid/")[-1].split("/")[0])
         rec.parseMif(file, "mif300")
         # try:
         for i, interaction in enumerate(rec.interactions):
@@ -463,6 +674,7 @@ def parse_psi30(files, acceptable_labels):
                             # just make sure it's truly a molecular interaction (physical associatin, direct, etc)
                             if label in acceptable_labels:
                                 interaction_label.append(label)
+                                year.append(fyear)  # we need the year for each interaction
                                 
                                 # Add MI
                                 if type(interaction.type.primaryRef) != type(None):
@@ -470,7 +682,7 @@ def parse_psi30(files, acceptable_labels):
                                         if interaction.type.primaryRef.db == "psi-mi":
                                             interaction_mi.append(interaction.type.primaryRef.ac)
                                     except Exception as e:
-                                        logging.error(f"Error getting MI: {e}")
+                                        logger.error(f"Error getting MI: {e}")
                                         interaction_mi.append(None)
                                         
                                 # Get info for interactors 1 and 2
@@ -523,11 +735,11 @@ def parse_psi30(files, acceptable_labels):
                                     
                                     experiments.append(cur_experiments)
                                 else:
-                                    logging.info(f"No experiments found for interaction {i} in {file}")
+                                    logger.info(f"No experiments found for interaction {i} in {file}")
                                     experiments.append(None)
-                                    
+                    
                     except Exception as e:
-                        logging.error(f"Error processing interaction: {e}")
+                        logger.error(f"Error processing interaction: {e}")
                         continue
             # If not a binary interaction, see how many there are! And what the deal is
             else:
@@ -537,7 +749,7 @@ def parse_psi30(files, acceptable_labels):
                     if participant.interactor and participant.interactor.type:
                         part_types.append(participant.interactor.type.label)
                 part_types = ",".join(part_types)
-                logging.warning(
+                logger.warning(
                     f"Interaction {i} at {file} has {len(interaction.participants)} participants.\n\tTypes: {part_types}"
                 )
                 continue
@@ -546,6 +758,7 @@ def parse_psi30(files, acceptable_labels):
         "interaction_label": interaction_label,
         "interaction_mi": interaction_mi,
         "experiments": experiments,
+        "year": year,
         "gene_name_1": gene_name_1,
         "gene_symbol_1": gene_symbol_1,
         "length_1": length_1,
@@ -637,6 +850,8 @@ def run_parallel_parsing(posfiles, acceptable_labels, output_dir="../data_files/
     os.makedirs(output_dir, exist_ok=True)
 
     n_cores = multiprocessing.cpu_count()
+    # for safety, leave one out
+    n_cores = n_cores-1
     file_chunks = split_into_chunks(posfiles, n_cores)
 
     with multiprocessing.Pool(processes=n_cores) as pool:
@@ -650,33 +865,43 @@ def run_parallel_parsing(posfiles, acceptable_labels, output_dir="../data_files/
         )
     return results
 
-def merge_outputs(intermediate_output_dir="../data_files/processed/intact/output_chunks", interaction_type="positive", final_output_dir="../data_files/processed/intact"):
+def merge_outputs(intermediate_output_dir: Path, interaction_type: str, final_output_dir: Path):
     dfs = []
-    for file in sorted(os.listdir(intermediate_output_dir)):
-        if file.endswith(".csv"):
-            df = pd.read_csv(os.path.join(intermediate_output_dir, file))
-            dfs.append(df)
+
+    intermediate_output_dir = Path(intermediate_output_dir)
+    final_output_dir = Path(final_output_dir)
+
+    for file in sorted(intermediate_output_dir.glob("*.csv")):
+        df = pd.read_csv(file)
+        dfs.append(df)
+
+    if not dfs:
+        logger.warning(f"No CSV files found in {intermediate_output_dir}. Skipping merge.")
+        return
+
     merged = pd.concat(dfs, ignore_index=True)
-    
-    # get today's date 
+
     today = datetime.now().strftime("%Y-%m-%d")
-    merged_filename = os.path.join(final_output_dir, f"intact_processed_{interaction_type}PPIs_{today}.csv")
-    os.makedirs(final_output_dir, exist_ok=True)
-    # Save the merged DataFrame to a CSV file
+    merged_filename = final_output_dir / f"intact_processed_{interaction_type}PPIs_{today}.csv"
+    final_output_dir.mkdir(parents=True, exist_ok=True)
+
     merged.to_csv(merged_filename, index=False)
     logger.info(f"Merged output written to {merged_filename}")
 
 
-def main():
+def main(cfg: DictConfig):
     """
     Main method. Process interactome data.
     """
-    # create dataset_50, species_50, and pmid_50 one by one and then merge them to the full set
-    git_root = get_git_root()
-    intact_folder = f"{git_root}/interactome/data_files/raw/intact"
-    mypath_datasets = f"{intact_folder}/psi30/datasets/"
-    mypath_species = f"{intact_folder}/psi30/species/"
-    mypath_pmid = f"{intact_folder}/psi30/pmid/"
+    mode = cfg.process.mode
+    logger.info(f"Running IntAct processor in mode: {mode}")
+
+    intact_folder = Path(root) / cfg.process.input_dir
+    mypath_pmid = intact_folder / "psi30/pmid"
+    mypath_terms = Path(root) / cfg.process.label_terms_file
+    pos_output_dir = Path(root) / cfg.process.pos_output_dir
+    neg_output_dir = Path(root) / cfg.process.neg_output_dir
+    example_output_dir = Path(root) / cfg.process.example_output_dir
 
     posfiles, negfiles = get_pos_neg_files(mypath_pmid)
     logger.info(
@@ -684,55 +909,59 @@ def main():
     )
 
     # read in the CSV file with the acceptable labels and make a label list
-    mypath_terms = (
-        f"{git_root}/interactome/data_files/processed/intact/cv/mi_0190_subtree.csv"
-    )
-    if not (os.path.exists(mypath_terms)):
-        logger.info(f"Organizing controlled vocabulary file")
+    if not mypath_terms.exists():
+        logger.info("Generating controlled vocabulary terms...")
         organize_cv()
 
-    acceptable_labels = pd.read_csv(mypath_terms)
-    acceptable_labels = list(acceptable_labels["label"])
-
-    logger.info(
-        f"Getting all available keys from the first positive file: {posfiles[0]}"
-    )
-    see_all_keys(posfiles[0])
-    interaction_no = 1
-    logger.info(
-        f"Recording all paths from first positive file, interaction {interaction_no}: {posfiles[0]}"
-    )
-    #record_all_paths_and_values(posfiles[0], interaction_no=interaction_no)
-    record_all_paths_and_values(negfiles[0], interaction_no=0)
-
-    # Do a sample run
-    example_fname = posfiles[0].split("/")[-1].replace(".xml", "")
-    test_psi30_info = parse_psi30([posfiles[0]], acceptable_labels)
-    test_interactome = pd.DataFrame.from_dict(test_psi30_info)
-    test_interactome = test_interactome.rename(
-        columns={
-            "gene_name_1": "protein_1",
-            "gene_name_2": "protein_2",
-            "protein_1": "aa_1",
-            "protein_2": "aa_2",
-        }
-    )
-    test_interactome.to_csv(f"../data_files/processed/intact/examples/positive_{example_fname}xml_interactome.csv", index=False)
-
-    negfile_intermediate_path = "../data_files/processed/intact/negative_output_chunks"
-    posfile_intermediate_path = "../data_files/processed/intact/positive_output_chunks"
+    acceptable_labels = pd.read_csv(mypath_terms)["label"].tolist()
     
-    # Do negative parallel processing
-    output_files = run_parallel_parsing(posfiles, acceptable_labels, output_dir=posfile_intermediate_path)
-    merge_outputs(posfile_intermediate_path, interaction_type="positive")
+    # If running in debug mode, just do the debug 
+    if cfg.process.debug:
+        run_debug_mode(
+            debug_file=str(Path(root) / cfg.process.debug_file),
+            acceptable_labels=pd.read_csv(mypath_terms)["label"].tolist(),
+            output_dir=Path(HydraConfig.get().runtime.output_dir)
+        )
+        return
+
+    if mode in ["positive", "all"]:
+        logger.info(f"Seeing keys in first positive file: {posfiles[0]}")
+        see_all_keys(posfiles[0], output_dir=example_output_dir)
+        record_all_paths_and_values(posfiles[0], output_dir=example_output_dir, interaction_no=1)
+        
+        logger.info("Running sample positive file")
+        example_fname = Path(posfiles[0]).stem
+        test_info = parse_psi30([posfiles[0]], acceptable_labels)
+        df = pd.DataFrame.from_dict(test_info).rename(
+            columns={
+                "gene_name_1": "protein_1",
+                "gene_name_2": "protein_2",
+                "protein_1": "aa_1",
+                "protein_2": "aa_2",
+            }
+        )
+        example_output_dir.mkdir(parents=True, exist_ok=True)
+        df.to_csv(example_output_dir / f"positive_{example_fname}_interactome.csv", index=False)
+
+        logger.info("Running parallel processing for positives")
+        run_parallel_parsing(posfiles, acceptable_labels, output_dir=pos_output_dir)
+        merge_outputs(
+            intermediate_output_dir=pos_output_dir,
+            interaction_type="positive",
+            final_output_dir=Path(root) / cfg.process.final_output_dir
+        )
+
+    if mode in ["negative", "all"]:
+        logger.info("Recording values in first negative file")
+        record_all_paths_and_values(negfiles[0], output_dir=example_output_dir, interaction_no=0)
+
+        logger.info("Running parallel processing for negatives")
+        run_parallel_parsing(negfiles, acceptable_labels, output_dir=neg_output_dir)
+        merge_outputs(
+            intermediate_output_dir=neg_output_dir,
+            interaction_type="negative",
+            final_output_dir=Path(root) / cfg.process.final_output_dir
+        )
 
 if __name__ == "__main__":
-    logger = logging.getLogger(__name__)
-    logging.basicConfig(
-        filename="process_intact.log",
-        encoding="utf-8",
-        level=logging.DEBUG,
-        filemode="w",
-    )
-
     main()

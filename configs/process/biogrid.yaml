@@ -1,0 +1,4 @@
+name: biogrid
+
+input_file: interactome/data_files/raw/biogrid/BIOGRID-ALL-4.4.247.tab3.txt
+example_output_dir: interactome/data_files/processed/biogrid/examples

@@ -1,0 +1,15 @@
+name: intact
+mode: all  # "positive", "negative", or "all"
+
+input_dir: interactome/data_files/raw/intact
+label_terms_file: interactome/data_files/processed/intact/cv/mi_0190_subtree.csv
+example_output_dir: interactome/data_files/processed/intact/examples
+
+pos_output_dir: interactome/data_files/processed/intact/positive_output_chunks
+neg_output_dir: interactome/data_files/processed/intact/negative_output_chunks
+final_output_dir: interactome/data_files/processed/intact
+
+log_dir: interactome/logs/process/intact
+hydra:
+  run:
+    dir: ${log_dir}/${now:%Y-%m-%d}_${now:%H-%M-%S}

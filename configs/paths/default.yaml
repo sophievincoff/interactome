@@ -7,7 +7,7 @@ root_dir: ${oc.env:PROJECT_ROOT}
 data_dir: ${paths.root_dir}/interactome/data_files/
 
 # path to logs
-log_dir: ${paths.root_dir}/interactome/logs/
+log_dir: ${paths.root_dir}/logs/
 
 # hydra-managed output dir
 output_dir: ${hydra:runtime.output_dir}

@@ -6,5 +6,8 @@ interactome.egg-info/PKG-INFO
 interactome.egg-info/SOURCES.txt
 interactome.egg-info/dependency_links.txt
 interactome.egg-info/top_level.txt
+interactome/scripts/__init__.py
+interactome/scripts/download.py
+interactome/scripts/process.py
 interactome/utils/__init__.py
 interactome/utils/utils.py

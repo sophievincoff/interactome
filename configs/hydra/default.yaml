@@ -14,4 +14,4 @@ sweep:
 job_logging:
   handlers:
     file:
-      filename: ${hydra.runtime.output_dir}/${task_name}.log
+      filename: ${hydra.runtime.output_dir}/task.log

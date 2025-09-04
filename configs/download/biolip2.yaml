@@ -1,0 +1,16 @@
+name: biolip2
+task_name: download
+
+delete_zip: true
+
+url: https://zhanggroup.org/BioLiP/download/BioLiP_nr.txt.gz 
+output_dir: interactome/data_files/raw/biolip2
+filename: BioLiP_nr.txt.gz
+
+prot_seqs_url: https://zhanggroup.org/BioLiP/data/protein_nr.fasta.gz
+prot_seqs_output_dir: ${download.output_dir}
+prot_seqs_filename: protein_nr.fasta.gz
+
+pep_seqs_url: https://zhanggroup.org/BioLiP/data/peptide_nr.fasta.gz
+pep_seqs_output_dir: ${download.output_dir}
+pep_seqs_filename: peptide_nr.fasta.gz

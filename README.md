@@ -37,3 +37,11 @@ python scripts/download.py database=biogrid
 # Download intact
 python scripts/download.py database=intact
 ```
+
+## Software
+
+NCBI download tools
+```
+curl -o datasets 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/datasets'
+chmod +x datasets
+```

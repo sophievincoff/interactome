@@ -1,0 +1,12 @@
+name: biolip2
+
+example_output_dir: interactome/data_files/processed/biolip2/examples
+
+database:
+  input_file: interactome/data_files/raw/biolip2/BioLiP_nr.txt
+
+protein_seqs:
+  input_file: interactome/data_files/raw/biolip2/peptide_nr.fasta
+
+peptide_seqs:
+  input_file: interactome/data_files/raw/biolip2/protein_nr.fasta

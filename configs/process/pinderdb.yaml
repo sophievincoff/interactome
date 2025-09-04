@@ -1,0 +1,12 @@
+name: pinderdb
+mode: all  # "positive", "negative", or "all"
+
+input_metadata: interactome/data_files/raw/pinder/pinder/2024-02/metadata.parquet
+example_output_dir: interactome/data_files/processed/intact/examples
+
+output_dir: interactome/data_files/processed/pinder
+
+n_cores: 23                 # how many CPU processes to use
+per_core_samples: 2000    # exactly 1000 rows per process
+max_workers_inner: 1        # threads inside each process (keep low!)
+cover_all: true

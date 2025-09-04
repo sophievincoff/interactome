@@ -1,6 +1,7 @@
 __pycache__/
 .vscode/
 data_files/
+software/
 *.log
 interactome/temp.py
 interactome/data/test_interactome.csv

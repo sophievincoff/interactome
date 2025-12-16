@@ -1,0 +1,12 @@
+defaults:
+  - _self_
+  - paths: default
+  - analyze: alphafolddb_query
+  - hydra: default
+  
+
+task_name: analyze
+
+analyze:
+  debug: false
+  debug_file: ""  # e.g., "data_files/raw/intact/psi30/pmid/1980/6444721.xml"

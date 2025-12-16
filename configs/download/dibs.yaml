@@ -1,0 +1,11 @@
+name: dibs
+task_name: download
+
+url: https://dibs.pbrg.hu/downloads/DIBS_complete.txt
+output_dir: interactome/data_files/raw/dibs
+filename: DIBS_complete.txt
+
+schema_url: https://dibs.pbrg.hu/downloads/DIBS_format_definition.txt
+schema_filename: DIBS_format_definition.txt
+
+delete_zip: false

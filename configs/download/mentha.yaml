@@ -1,0 +1,8 @@
+name: mentha
+
+url:  https://mentha.uniroma2.it/doDownload.php?file=organisms/all.zip
+output_dir: interactome/data_files/raw/mentha
+filename: all.zip
+task_name: download
+
+delete_zip: true

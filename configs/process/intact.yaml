@@ -2,12 +2,24 @@ name: intact
 mode: all  # "positive", "negative", or "all"
 
 input_dir: interactome/data_files/raw/intact
-label_terms_file: interactome/data_files/processed/intact/cv/mi_0190_subtree.csv
 example_output_dir: interactome/data_files/processed/intact/examples
+
+# controllved vocabulary label trees
+label_term_files:
+  interaction: interactome/data_files/processed/intact/cv/mi_0190_subtree.csv
+  physical_association: interactome/data_files/processed/intact/cv/mi_0915_subtree.csv
+  direct_interaction: interactome/data_files/processed/intact/cv/mi_0407_subtree.csv
+  mutation: interactome/data_files/processed/intact/cv/mi_0118_subtree.csv
+  observed_ptm: interactome/data_files/processed/intact/cv/mi_0925_subtree.csv
+  binding_site: interactome/data_files/processed/intact/cv/mi_0117_subtree.csv
 
 pos_output_dir: interactome/data_files/processed/intact/positive_output_chunks
 neg_output_dir: interactome/data_files/processed/intact/negative_output_chunks
 final_output_dir: interactome/data_files/processed/intact
+
+ok_participant_types:
+  - protein
+  - peptide
 
 log_dir: interactome/logs/process/intact
 hydra:

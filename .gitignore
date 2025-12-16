@@ -6,3 +6,5 @@ software/
 interactome/temp.py
 interactome/data/test_interactome.csv
 logs/
+interactome/rcsb_cache.sqlite
+interactome/utils/ubuntu_font/

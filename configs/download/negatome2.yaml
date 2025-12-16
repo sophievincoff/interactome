@@ -1,0 +1,8 @@
+name: negatome2
+
+url:  https://mips.helmholtz-muenchen.de/proj/ppi/negatome/manual_stringent.txt
+output_dir: interactome/data_files/raw/negatome
+filename: manual_stringent.txt
+task_name: download
+
+delete_zip: false

@@ -1,0 +1,13 @@
+task_name: download
+name: uniref90
+
+url:  https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.fasta.gz
+output_dir: interactome/data_files/raw/uniref90
+filename: uniref90.fasta.gz
+unzip: true
+delete_zip: true
+
+url_xml: https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref90/uniref90.xml.gz
+filename_xml: uniref90.xml.gz
+unzip_xml: false
+delete_zip_xml: false

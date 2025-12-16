@@ -1,0 +1,22 @@
+name: pepmlm
+
+complex_file: interactome/data_files/raw/pepmlm/train_test_data/complex.csv
+pepnn_test: interactome/data_files/raw/pepmlm/train_test_data/pepnn_test_dataset.csv
+pepnn_train: interactome/data_files/raw/pepmlm/train_test_data/pepnn_train_dataset.csv
+propedia_test: interactome/data_files/raw/pepmlm/train_test_data/test.csv
+
+struct_out_dir: interactome/data_files/raw/pepmlm/rcsb_cif
+struct_clean_dir: interactome/data_files/raw/pepmlm/rcsb_cif_clean
+max_workers: 16
+
+download_log_csv: interactome/data_files/raw/pepmlm/rcsb_download_log.csv
+structure_status_csv: interactome/data_files/processed/pepmlm/structure_status.csv
+interaction_status_csv: interactome/data_files/processed/pepmlm/interaction_status.csv
+
+chain_inventory_csv: interactome/data_files/processed/pepmlm/chain_inventory.csv
+matched_interactions_csv: interactome/data_files/processed/pepmlm/matched_interactions.csv
+
+pepmlm_pairs_csv: interactome/data_files/processed/pepmlm/pepmlm_seq_pairs.csv
+full_pairs_csv: interactome/data_files/processed/pepmlm/full_seq_pairs.csv
+
+redownload: true

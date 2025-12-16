@@ -1,0 +1,9 @@
+name: alphafolddb_query
+
+input_path: interactome/data_files/processed/intact/features/all_merged_uniprots.txt
+output_path: alphafolddb_query_out.tsv
+workers: 8
+sleep: 0
+
+debug: false
+debug_file: null

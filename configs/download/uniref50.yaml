@@ -1,0 +1,13 @@
+task_name: download
+name: uniref50
+
+url:  https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref50/uniref50.fasta.gz
+output_dir: interactome/data_files/raw/uniref50
+filename: uniref50.fasta.gz
+unzip: true
+delete_zip: true
+
+url_xml: https://ftp.uniprot.org/pub/databases/uniprot/uniref/uniref50/uniref50.xml.gz
+filename_xml: uniref50.xml.gz
+unzip_xml: false
+delete_zip_xml: false

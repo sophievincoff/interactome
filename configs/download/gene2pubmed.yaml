@@ -1,0 +1,8 @@
+name: gene2pubmed
+
+url: https://ftp.ncbi.nlm.nih.gov/gene/DATA/gene2pubmed.gz
+output_dir: interactome/data_files/raw/gene2pubmed
+filename: gene2pubmed.gz
+task_name: download
+
+delete_zip: true

@@ -1,0 +1,11 @@
+name: mfib2
+task_name: download
+
+url: https://mfib.pbrg.hu/downloads/MFIB_complete.txt
+output_dir: interactome/data_files/raw/mfib2
+filename: MFIB_complete.txt
+
+schema_url: https://mfib.pbrg.hu/downloads/MFIB_format_definition.txt
+schema_filename: MFIB_format_definition.txt
+
+delete_zip: false

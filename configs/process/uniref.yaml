@@ -1,0 +1,6 @@
+name: uniref
+
+uniref_50_input_path: interactome/data_files/raw/uniref50/uniref50.xml.gz
+uniref_90_input_path: interactome/data_files/raw/uniref90/uniref90.xml.gz
+uniref_50_output_dir: interactome/data_files/processed/uniref50
+uniref_90_output_dir: interactome/data_files/processed/uniref90

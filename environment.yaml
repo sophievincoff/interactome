@@ -37,4 +37,7 @@ dependencies:
     - beautifulsoup4==4.13.5
     - matplotlib==3.10.5
     - pinder==0.5.0
+    - seaborn==0.13.2
+    - statsmodels==0.14.6 # for plotting regression lines
+    - gemmi==0.7.4
     - -e .

@@ -24,10 +24,11 @@ configs/
 scripts/
 ├── download.py                # runs appropriate .sh script based on config
 └── process.py                 # runs appropriate .py or logic
-└── clean_intact.ipynb         # final filtering of IntAct database
 
 data/
 └── download_intact.sh
+└── process/
+    └── clean_intact.ipynb     # final filtering of IntAct database
 ```
 
 To replicate the SNOOPPI curation pipeline, please run the following code.
@@ -41,4 +42,4 @@ python scripts/download.py database=intact
 python scripts/process.py database=intact
 ```
 
-To complete the processing pipeline, run all cells in `scripts/clean_intact.ipynb`
+To complete the processing pipeline, run all cells in `data/process/clean_intact.ipynb`
